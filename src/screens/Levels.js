@@ -1,4 +1,10 @@
-import { SafeAreaView, StyleSheet, ScrollView } from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 import React, { useState } from 'react';
 
 import Colors from '../theme/Colors';
@@ -9,15 +15,43 @@ import Button from '../components/Button';
 
 import { LEVELS } from '../utils.js/Constants';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
+const Levels = ({ route }) => {
+  const navigation = useNavigation();
 
-const Levels = () => {
-  const navigation = useNavigation()
+  const { selectedCategory } = route.params; // Servis kategori bilgisini string değil id olarak istiyor. O yüzden CATEGORIES arrayi güncellenmeli.
+
   const [selectedLevel, setSelectedLevel] = useState(null);
+
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const URL = `https://opentdb.com/api.php?amount=10&category=11&difficulty=${selectedLevel?.toLowerCase()}&type=multiple`;
+
+  const getQuestions = async () => {
+    try {
+      setLoading(true);
+      const result = await axios.get(URL);
+
+      setData(result?.data?.results || []);
+      setLoading(false);
+
+      if (result?.data?.results.length === 0) {
+        return Alert.alert('Error', 'No questions found!');
+      }
+
+      navigation.navigate('Questions', { data: result?.data?.results });
+      setSelectedLevel(null);
+    } catch (error) {
+      console.log('Error', error);
+      setLoading(false);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Select Level" onPressBack={()=>navigation.goBack()} />
+      <Header title="Select Level" onPressBack={() => navigation.goBack()} />
 
       <ScrollView>
         {LEVELS.map(item => (
@@ -31,8 +65,9 @@ const Levels = () => {
 
         <Button
           title="Start Playing"
-          onPress={() => navigation.navigate('Questions')}
-          disabled={selectedLevel}
+          onPress={getQuestions}
+          disabled={!selectedLevel || loading}
+          loading={loading}
         />
       </ScrollView>
     </SafeAreaView>

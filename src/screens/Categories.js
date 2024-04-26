@@ -15,7 +15,10 @@ const Categories = () => {
   const navigation = useNavigation();
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-  /* category takılı kalıyor */
+  const handleCategory = () => {
+    navigation.navigate('Levels', { selectedCategory });
+    setSelectedCategory(null);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -33,8 +36,8 @@ const Categories = () => {
 
         <Button
           title="Next"
-          onPress={() => navigation.navigate('Levels')}
-          disabled={selectedCategory}
+          onPress={handleCategory}
+          disabled={!selectedCategory}
         />
       </ScrollView>
     </SafeAreaView>

@@ -7,7 +7,12 @@ import Fonts from '../theme/Fonts';
 
 import BackIcon from '../assets/svgs/back.svg';
 
-const Header = ({ onPressBack, title }) => {
+const Header = ({
+  onPressBack,
+  title,
+  currentIndex = false,
+  totalIndex = false,
+}) => {
   return (
     <View style={styles.container}>
       {onPressBack ? (
@@ -15,6 +20,14 @@ const Header = ({ onPressBack, title }) => {
           <BackIcon width={getRW(50)} height={getRW(50)} />
         </TouchableOpacity>
       ) : null}
+
+      {currentIndex && totalIndex ? (
+        <Text style={styles.questionText}>
+          Question {currentIndex}
+          <Text style={{ fontSize: Fonts.size(15) }}> / {totalIndex}</Text>
+        </Text>
+      ) : null}
+
       <Text style={styles.title}>{title}</Text>
     </View>
   );
@@ -32,9 +45,16 @@ const styles = StyleSheet.create({
   backContainer: {
     marginBottom: getRH(5),
   },
+  questionText: {
+    fontSize: Fonts.size(20),
+    color: Colors.WHITE,
+    fontWeight: 'bold',
+    marginBottom: getRH(10),
+  },
   title: {
     fontSize: Fonts.size(30),
     color: Colors.WHITE,
     fontWeight: '600',
+    marginRight: getRW(40),
   },
 });

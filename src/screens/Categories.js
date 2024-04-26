@@ -9,7 +9,10 @@ import Button from '../components/Button';
 
 import { CATEGORIES } from '../utils.js/Constants';
 
+import { useNavigation } from '@react-navigation/native';
+
 const Categories = () => {
+  const navigation = useNavigation();
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   return (
@@ -28,7 +31,7 @@ const Categories = () => {
 
         <Button
           title="Next"
-          onPress={() => console.log('Next')}
+          onPress={() => navigation.navigate('Levels')}
           disabled={selectedCategory}
         />
       </ScrollView>

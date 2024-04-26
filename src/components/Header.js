@@ -5,12 +5,14 @@ import { getRW, getRH } from '../theme/Units';
 import Colors from '../theme/Colors';
 import Fonts from '../theme/Fonts';
 
+import BackIcon from '../assets/svgs/back.svg';
+
 const Header = ({ onPressBack, title }) => {
   return (
     <View style={styles.container}>
       {onPressBack ? (
-        <TouchableOpacity onPress={onPressBack}>
-          <Text style={styles.back}>{' <'}</Text>
+        <TouchableOpacity style={styles.backContainer} onPress={onPressBack}>
+          <BackIcon width={getRW(50)} height={getRW(50)} />
         </TouchableOpacity>
       ) : null}
       <Text style={styles.title}>{title}</Text>
@@ -27,11 +29,7 @@ const styles = StyleSheet.create({
     marginHorizontal: getRW(20),
     marginBottom: getRH(40),
   },
-  back: {
-    fontSize: Fonts.size(30),
-    color: Colors.WHITE,
-    marginTop: getRH(5),
-    fontWeight: 'bold',
+  backContainer: {
     marginBottom: getRH(5),
   },
   title: {

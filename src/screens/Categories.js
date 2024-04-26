@@ -15,6 +15,8 @@ const Categories = () => {
   const navigation = useNavigation();
   const [selectedCategory, setSelectedCategory] = useState(null);
 
+  /* category takılı kalıyor */
+
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Select Category" />

@@ -23,7 +23,7 @@ export default Answer;
 const styles = StyleSheet.create({
   container: {
     height: getRH(45),
-    marginHorizontal: getRW(40),
+    marginHorizontal: getRW(30),
     marginTop: getRH(25),
     backgroundColor: Colors.PINK,
     borderRadius: getRH(90),

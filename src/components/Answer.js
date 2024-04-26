@@ -5,7 +5,7 @@ import { getRW, getRH } from '../theme/Units';
 import Colors from '../theme/Colors';
 import Fonts from '../theme/Fonts';
 
-import Tick from '../assets/svgs/tick.svg';
+import TickIcon from '../assets/svgs/tick.svg';
 
 const Answer = ({ title, onPress, isSelected }) => {
   return (
@@ -15,7 +15,7 @@ const Answer = ({ title, onPress, isSelected }) => {
       activeOpacity={0.8}>
       <Text style={styles.title}>{title}</Text>
      {isSelected ?  <View style={styles.tickContainer}>
-        <Tick width={getRW(20)} height={getRW(20)} />
+        <TickIcon width={getRW(20)} height={getRW(20)} />
       </View> : null}
     </TouchableOpacity>
   );
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     height: getRH(65),
-    marginHorizontal: getRW(40),
+    marginHorizontal: getRW(30),
     marginBottom: getRH(25),
     backgroundColor: Colors.WHITE,
     borderRadius: getRH(20),

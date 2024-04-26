@@ -17,7 +17,7 @@ const Levels = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Select Level" />
+      <Header title="Select Level" onPressBack={()=>navigation.goBack()} />
 
       <ScrollView>
         {LEVELS.map(item => (
@@ -30,7 +30,7 @@ const Levels = () => {
         ))}
 
         <Button
-          title="Next"
+          title="Start Playing"
           onPress={() => navigation.navigate('Questions')}
           disabled={selectedLevel}
         />

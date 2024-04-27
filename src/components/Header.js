@@ -22,10 +22,22 @@ const Header = ({
       ) : null}
 
       {currentIndex && totalIndex ? (
-        <Text style={styles.questionText}>
-          Question {currentIndex}
-          <Text style={{ fontSize: Fonts.size(15) }}> / {totalIndex}</Text>
-        </Text>
+        <>
+          <Text style={styles.questionText}>
+            Question {currentIndex}
+            <Text style={{ fontSize: Fonts.size(15) }}> / {totalIndex}</Text>
+          </Text>
+
+          <View style={styles.progressBar}>
+            <View
+              style={{
+                ...styles.progressBar,
+                backgroundColor: 'yellow',
+                width: (currentIndex / totalIndex) * 100 + '%',
+              }}
+            />
+          </View>
+        </>
       ) : null}
 
       <Text style={styles.title}>{title}</Text>
@@ -56,5 +68,12 @@ const styles = StyleSheet.create({
     color: Colors.WHITE,
     fontWeight: '600',
     marginRight: getRW(40),
+  },
+  progressBar: {
+    height: getRH(10),
+    backgroundColor: Colors.PINK,
+    marginRight: getRW(40),
+    borderRadius: getRH(10),
+    marginBottom: getRH(10),
   },
 });

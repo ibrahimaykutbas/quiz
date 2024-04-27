@@ -7,12 +7,33 @@ import Fonts from '../theme/Fonts';
 
 import TickIcon from '../assets/svgs/tick.svg';
 
-const Answer = ({ item, title, onPress, isSelected }) => {
+const Answer = ({ item, title, onPress, isSelected, disabled, status }) => {
   return (
     <TouchableOpacity
-      style={[styles.container, isSelected ? styles.selectedAnswer : null]}
+      style={[
+        styles.container,
+        {
+          borderWidth: 3,
+          borderColor:
+            isSelected && status == null
+              ? Colors.PINK
+              : status != null && status
+              ? Colors.GREEN
+              : status != null && !status
+              ? Colors.RED
+              : 'transparent',
+        },
+        //isSelected ? styles.selectedAnswer : null,
+
+        /*   status != null && status
+          ? styles.correctAnswer
+          : status != null && !status
+          ? styles.incorrectAnseer
+          : null, */
+      ]}
       onPress={() => onPress(item || title)}
-      activeOpacity={0.8}>
+      activeOpacity={0.8}
+      disabled={disabled}>
       <Text style={styles.title}>{item?.title || title}</Text>
       {isSelected ? (
         <View style={styles.tickContainer}>
@@ -40,6 +61,14 @@ const styles = StyleSheet.create({
   selectedAnswer: {
     borderWidth: getRH(3),
     borderColor: Colors.PINK,
+  },
+  correctAnswer: {
+    borderWidth: getRH(3),
+    borderColor: 'green',
+  },
+  incorrectAnseer: {
+    borderWidth: getRH(3),
+    borderColor: 'red',
   },
   title: {
     fontSize: Fonts.size(20),

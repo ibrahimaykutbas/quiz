@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: getRH(45),
     marginHorizontal: getRW(30),
-    marginTop: getRH(25),
+    marginTop: getRH(10),
     backgroundColor: Colors.PINK,
     borderRadius: getRH(90),
     alignItems: 'center',

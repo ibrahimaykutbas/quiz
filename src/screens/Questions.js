@@ -27,6 +27,7 @@ const Questions = ({ route }) => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answers, setAnswers] = useState([]);
+  const [result, setResult] = useState(null); // Kullanıcı cevabını kontrol etti mi?
   const [report, setReport] = useState({
     correct: 0,
     incorrect: 0,
@@ -44,53 +45,68 @@ const Questions = ({ route }) => {
   }, [questionIndex]);
 
   const nextQuestion = () => {
-    if (questionIndex < data.length - 1) {
-      if (selectedAnswer == data[questionIndex]?.correct_answer) {
-        setReport({
-          ...report,
-          correct: report.correct + 1,
-        });
+    if (result) {
+      if (questionIndex < data.length - 1) {
+        if (selectedAnswer == data[questionIndex]?.correct_answer) {
+          setReport({
+            ...report,
+            correct: report.correct + 1,
+          });
+        } else {
+          setReport({
+            ...report,
+            incorrect: report.incorrect + 1,
+          });
+        }
+
+        setQuestionIndex(questionIndex + 1);
+        setSelectedAnswer(null);
+        setResult(false);
+
+        // Bir sonraki soruya geçildiği zaman ekranın başına gitmek için.
+        scrollViewRef.current.scrollTo({ y: 0, animated: true });
       } else {
-        setReport({
-          ...report,
-          incorrect: report.incorrect + 1,
-        });
+        Alert.alert('Game Over', 'You have completed the game', [
+          { text: 'OK', onPress: () => navigation.navigate('Categories') },
+        ]);
       }
-
-      setQuestionIndex(questionIndex + 1);
-      setSelectedAnswer(null);
-
-      // Bir sonraki soruya geçildiği zaman ekranın başına gitmek için.
-      scrollViewRef.current.scrollTo({ y: 0, animated: true });
     } else {
-      Alert.alert('Game Over', 'You have completed the game',[
-        {text: 'OK', onPress: () => navigation.navigate('Categories')}
-      ])
-
-      
+      console.log('Kontrol et');
+      setResult(true);
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header
-        title={data[questionIndex]?.question}
-        onPressBack={() => navigation.goBack()}
-        currentIndex={questionIndex + 1}
-        totalIndex={data?.length}
-      />
-
       <ScrollView ref={scrollViewRef}>
+        <Header
+          title={data[questionIndex]?.question}
+          onPressBack={() => navigation.goBack()}
+          currentIndex={questionIndex + 1}
+          totalIndex={data?.length}
+        />
+
         {answers.map(item => (
           <Answer
             key={item}
             title={item}
             isSelected={selectedAnswer == item}
             onPress={setSelectedAnswer}
+            disabled={result} // Kullanıcı cevabı kontrol ettikten sonra değiştirmesini engellemek için.
+            status={result ? item == data[questionIndex]?.correct_answer : null}
           />
         ))}
 
-        <Button title="Submit Anwswer" onPress={nextQuestion} />
+        <Button
+          title={
+            questionIndex + 1 == data?.length
+              ? 'End Game'
+              : result
+              ? 'Next Question'
+              : 'Check Answer'
+          }
+          onPress={nextQuestion}
+        />
 
         <TouchableOpacity
           style={styles.exitContainer}

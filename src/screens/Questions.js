@@ -31,6 +31,7 @@ const Questions = ({ route }) => {
   const [report, setReport] = useState({
     correct: 0,
     incorrect: 0,
+    empty: 0,
   }); // Henüz kullanılmadı. Sorular bittikten sonra raporlama için kullanılacak.
 
   useEffect(() => {
@@ -45,9 +46,15 @@ const Questions = ({ route }) => {
   }, [questionIndex]);
 
   const nextQuestion = () => {
+    // Son sorunun durumunu rapora yazmıyor.
     if (result) {
       if (questionIndex < data.length - 1) {
-        if (selectedAnswer == data[questionIndex]?.correct_answer) {
+        if (selectedAnswer == null) {
+          setReport({
+            ...report,
+            empty: report.empty + 1,
+          });
+        } else if (selectedAnswer == data[questionIndex]?.correct_answer) {
           setReport({
             ...report,
             correct: report.correct + 1,
@@ -66,9 +73,11 @@ const Questions = ({ route }) => {
         // Bir sonraki soruya geçildiği zaman ekranın başına gitmek için.
         scrollViewRef.current.scrollTo({ y: 0, animated: true });
       } else {
-        Alert.alert('Game Over', 'You have completed the game', [
-          { text: 'OK', onPress: () => navigation.navigate('Categories') },
-        ]);
+        Alert.alert(
+          'Game Over',
+          `You have completed the game \n\n Correct Answers: ${report.correct} \n Wrong Answers: ${report.incorrect} \n Empty Answers: ${report.empty} `,
+          [{ text: 'OK', onPress: () => navigation.navigate('Categories') }],
+        );
       }
     } else {
       console.log('Kontrol et');

@@ -63,7 +63,11 @@ const Questions = ({ route }) => {
       // Bir sonraki soruya geçildiği zaman ekranın başına gitmek için.
       scrollViewRef.current.scrollTo({ y: 0, animated: true });
     } else {
-      Alert.alert('Game Over', 'You have completed the game');
+      Alert.alert('Game Over', 'You have completed the game',[
+        {text: 'OK', onPress: () => navigation.navigate('Categories')}
+      ])
+
+      
     }
   };
 

@@ -7,16 +7,18 @@ import Fonts from '../theme/Fonts';
 
 import TickIcon from '../assets/svgs/tick.svg';
 
-const Answer = ({ title, onPress, isSelected }) => {
+const Answer = ({ item, title, onPress, isSelected }) => {
   return (
     <TouchableOpacity
       style={[styles.container, isSelected ? styles.selectedAnswer : null]}
-      onPress={() => onPress(title)}
+      onPress={() => onPress(item || title)}
       activeOpacity={0.8}>
-      <Text style={styles.title}>{title}</Text>
-     {isSelected ?  <View style={styles.tickContainer}>
-        <TickIcon width={getRW(20)} height={getRW(20)} />
-      </View> : null}
+      <Text style={styles.title}>{item?.title || title}</Text>
+      {isSelected ? (
+        <View style={styles.tickContainer}>
+          <TickIcon width={getRW(20)} height={getRW(20)} />
+        </View>
+      ) : null}
     </TouchableOpacity>
   );
 };

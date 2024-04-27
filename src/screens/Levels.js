@@ -27,7 +27,9 @@ const Levels = ({ route }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const URL = `https://opentdb.com/api.php?amount=10&category=11&difficulty=${selectedLevel?.toLowerCase()}&type=multiple`;
+  const URL = `https://opentdb.com/api.php?amount=10&category=${
+    selectedCategory?.id
+  }&difficulty=${selectedLevel?.toLowerCase()}&type=multiple`;
 
   const getQuestions = async () => {
     try {

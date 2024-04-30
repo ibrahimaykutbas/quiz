@@ -32,7 +32,7 @@ const Questions = ({ route }) => {
     correct: 0,
     incorrect: 0,
     empty: 0,
-  }); // Henüz kullanılmadı. Sorular bittikten sonra raporlama için kullanılacak.
+  }); 
 
   useEffect(() => {
     const answerList = [

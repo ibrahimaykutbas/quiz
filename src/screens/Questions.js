@@ -46,27 +46,9 @@ const Questions = ({ route }) => {
   }, [questionIndex]);
 
   const nextQuestion = () => {
-    // Son sorunun durumunu rapora yazmıyor.
     if (result) {
       if (questionIndex < data.length - 1) {
-        if (selectedAnswer == null) {
-          setReport({
-            ...report,
-            empty: report.empty + 1,
-          });
-        } else if (selectedAnswer == data[questionIndex]?.correct_answer) {
-          setReport({
-            ...report,
-            correct: report.correct + 1,
-          });
-        } else {
-          setReport({
-            ...report,
-            incorrect: report.incorrect + 1,
-          });
-        }
-
-        setQuestionIndex(questionIndex + 1);
+        questionIndex < data.length && setQuestionIndex(questionIndex + 1);
         setSelectedAnswer(null);
         setResult(false);
 
@@ -80,8 +62,24 @@ const Questions = ({ route }) => {
         );
       }
     } else {
-      console.log('Kontrol et');
       setResult(true);
+
+      if (selectedAnswer == null) {
+        setReport({
+          ...report,
+          empty: report.empty + 1,
+        });
+      } else if (selectedAnswer == data[questionIndex]?.correct_answer) {
+        setReport({
+          ...report,
+          correct: report.correct + 1,
+        });
+      } else {
+        setReport({
+          ...report,
+          incorrect: report.incorrect + 1,
+        });
+      }
     }
   };
 

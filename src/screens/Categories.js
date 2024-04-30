@@ -19,7 +19,7 @@ const Categories = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleCategory = () => {
-    navigation.navigate('Levels', { selectedCategory });
+    navigation.navigate('Types', { selectedCategory });
     setSelectedCategory(null);
     scrollViewRef.current.scrollTo({ y: 0, animated: true });
   };

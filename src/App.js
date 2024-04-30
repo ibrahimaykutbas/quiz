@@ -3,7 +3,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Categories from './screens/Categories';
+import Categories from './screens/Categories'
+import Types from './screens/Types';
 import Levels from './screens/Levels';
 import Questions from './screens/Questions';
 
@@ -17,6 +18,7 @@ const App = () => {
           headerShown: false,
         }}>
         <Stack.Screen name="Categories" component={Categories} />
+        <Stack.Screen name="Types" component={Types} />
         <Stack.Screen name="Levels" component={Levels} />
         <Stack.Screen name="Questions" component={Questions} />
       </Stack.Navigator>

@@ -98,3 +98,14 @@ export const CATEGORIES = [
 ];
 
 export const LEVELS = ['Easy', 'Medium', 'Hard'];
+
+export const TYPES = [
+  {
+    title: 'Multiple Choice',
+    type: 'multiple',
+  },
+  {
+    title: 'True-False',
+    type: 'boolean',
+  },
+];

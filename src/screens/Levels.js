@@ -2,7 +2,6 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
-  ActivityIndicator,
   Alert,
 } from 'react-native';
 import React, { useState } from 'react';
@@ -20,30 +19,28 @@ import axios from 'axios';
 const Levels = ({ route }) => {
   const navigation = useNavigation();
 
-  const { selectedCategory } = route.params; // Servis kategori bilgisini string değil id olarak istiyor. O yüzden CATEGORIES arrayi güncellenmeli.
+  const { selectedCategory, selectedType } = route.params;
 
   const [selectedLevel, setSelectedLevel] = useState(null);
 
-  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const URL = `https://opentdb.com/api.php?amount=10&category=${
     selectedCategory?.id
-  }&difficulty=${selectedLevel?.toLowerCase()}&type=multiple`;
+  }&difficulty=${selectedLevel?.toLowerCase()}&type=${selectedType.type}`;
 
   const getQuestions = async () => {
     try {
       setLoading(true);
       const result = await axios.get(URL);
 
-      setData(result?.data?.results || []);
       setLoading(false);
 
       if (result?.data?.results.length === 0) {
         return Alert.alert('Error', 'No questions found!');
       }
 
-      navigation.navigate('Questions', { data: result?.data?.results });
+      navigation.navigate('Questions', { data: result?.data?.results || [] });
       setSelectedLevel(null);
     } catch (error) {
       console.log('Error', error);

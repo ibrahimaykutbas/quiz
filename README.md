@@ -1,6 +1,9 @@
 # Quiz App
 
-<img src="screenshots/categories.png" height="500"> <img src="screenshots/types.png" height="500"> <img src="screenshots/levels.png" height="500"> <img src="screenshots/multiple.png" height="500"> <img src="screenshots/boolean.png" height="500">
+<details close>
+  <summary>Uygulamaya ait ekran görüntülerini görmek için tıklayın.</summary>
+  <img src="screenshots/categories.png" height="500"> <img src="screenshots/types.png" height="500"> <img src="screenshots/levels.png" height="500"> <img src="screenshots/multiple.png" height="500"> <img src="screenshots/boolean.png" height="500">
+</details>
 
 ## Teknoloji
 
